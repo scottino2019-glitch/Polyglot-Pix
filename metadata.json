@@ -1,0 +1,6 @@
+{
+  "name": "Language Dialogue Card Generator",
+  "description": "An interactive tool to design, translate, and export language learning conversation graphics for any language pairing, with automated AI dialogues, custom avatars, and stylish templates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

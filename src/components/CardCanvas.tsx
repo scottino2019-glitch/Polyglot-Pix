@@ -35,21 +35,20 @@ export function CardCanvas({
 
   const currentSize = sizeMap[aspectRatioMode];
 
-  // Helper classes for bubble spacing
   const bubbleCount = bubbles.length;
 
+  // Spazi bilanciati: né troppo ammassati né troppo larghi
   const getSpacingClass = (spacing: "snug" | "regular" | "cozy") => {
-    if (bubbleCount >= 6) return "space-y-1";
-    if (bubbleCount === 5) return "space-y-2";
-    if (bubbleCount === 4) return "space-y-3";
+    if (bubbleCount >= 6) return "space-y-3";
+    if (bubbleCount === 5) return "space-y-4";
+    if (bubbleCount === 4) return "space-y-5";
     switch (spacing) {
-      case "snug": return "space-y-3.5";
+      case "snug": return "space-y-4";
       case "cozy": return "space-y-8";
       default: return "space-y-6";
     }
   };
 
-  // Helper classes for bubble roundness
   const getRoundnessClass = (roundness: "sm" | "md" | "lg" | "full") => {
     switch (roundness) {
       case "sm": return "rounded-sm";
@@ -59,7 +58,6 @@ export function CardCanvas({
     }
   };
 
-  // Helper classes for shadow
   const getShadowClass = (shadow: "none" | "sm" | "md" | "lg") => {
     switch (shadow) {
       case "none": return "shadow-none";
@@ -69,18 +67,21 @@ export function CardCanvas({
     }
   };
 
-  // Adaptive values downscaling according to row count
-  const avatarSize = bubbleCount >= 6 ? 40 : bubbleCount === 5 ? 48 : bubbleCount === 4 ? 56 : 74;
-  const paddingClass = bubbleCount >= 6 ? "px-3 py-1.5" : bubbleCount === 5 ? "px-3.5 py-2" : bubbleCount === 4 ? "px-4 py-2.5" : "px-5 py-4";
+  // Avatar e Padding interni delle bolle
+  const avatarSize = bubbleCount >= 6 ? 48 : bubbleCount === 5 ? 56 : bubbleCount === 4 ? 64 : 74;
+  const paddingClass = bubbleCount >= 6 ? "p-3.5" : bubbleCount === 5 ? "p-4" : bubbleCount === 4 ? "p-5" : "p-6";
 
-  // Margins and text sizes
-  const headerMarginClass = bubbleCount >= 6 ? "mt-0 mb-1 shrink-0 text-center" : bubbleCount === 5 ? "mt-1 mb-2 shrink-0 text-center" : "mt-2 mb-4 shrink-0 text-center";
-  const titleSizeClass = bubbleCount >= 6 ? "text-2xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-3xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-4xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
-  const subtitleSizeClass = bubbleCount >= 6 ? "text-xs font-medium tracking-wide opacity-80" : "text-sm font-medium tracking-wide opacity-85";
+  // Margini e testi Titolo
+  const headerMarginClass = bubbleCount >= 6 ? "mt-1 mb-2 shrink-0 text-center" : bubbleCount === 5 ? "mt-2 mb-3 shrink-0 text-center" : "mt-3 mb-5 shrink-0 text-center";
+  const titleSizeClass = bubbleCount >= 6 ? "text-3xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-4xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-5xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
+  const subtitleSizeClass = bubbleCount >= 6 ? "text-sm font-medium tracking-wide opacity-80" : "text-base font-medium tracking-wide opacity-85";
 
-  const bubbleTextSize = bubbleCount >= 6 ? "text-base sm:text-lg font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 5 ? "text-lg sm:text-xl font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 4 ? "text-xl sm:text-2xl font-extrabold tracking-tight mb-1 leading-snug" : "text-3xl sm:text-4xl font-extrabold tracking-tight mb-1 leading-snug";
-  const romanizationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm italic font-semibold text-indigo-700/85 mb-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-semibold italic text-indigo-700/85 mb-0.5" : "text-lg sm:text-xl font-semibold italic text-indigo-700/85 mb-1";
-  const translationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : "text-lg sm:text-xl font-medium text-zinc-600 border-t border-zinc-100/80 pt-1 mt-1";
+  // TESTI DELLE OPZIONI E DIALOGHI (Aumentati sensibilmente e senza classi "sm:")
+  const bubbleTextSize = bubbleCount >= 6 ? "text-xl font-extrabold tracking-tight mb-1 leading-snug" : bubbleCount === 5 ? "text-2xl font-extrabold tracking-tight mb-1 leading-snug" : bubbleCount === 4 ? "text-3xl font-extrabold tracking-tight mb-1.5 leading-snug" : "text-4xl font-extrabold tracking-tight mb-2 leading-snug";
+  
+  const romanizationTextSize = bubbleCount >= 6 ? "text-base italic font-semibold text-indigo-700/85 mb-0.5" : bubbleCount === 5 ? "text-lg font-semibold italic text-indigo-700/85 mb-0.5" : "text-xl font-semibold italic text-indigo-700/85 mb-1";
+  
+  const translationTextSize = bubbleCount >= 6 ? "text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1" : bubbleCount === 5 ? "text-lg font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1" : "text-xl font-medium text-zinc-600 border-t border-zinc-100/80 pt-1.5 mt-1.5";
 
   const footerMarginClass = bubbleCount >= 6 ? "text-center mt-3 shrink-0 border-t border-dashed border-gray-400/20 pt-2" : "text-center mt-6 shrink-0 border-t border-dashed border-gray-400/20 pt-3";
 

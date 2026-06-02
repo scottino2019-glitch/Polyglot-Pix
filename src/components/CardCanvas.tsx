@@ -37,13 +37,13 @@ export function CardCanvas({
 
   const bubbleCount = bubbles.length;
 
-  // Spazi bilanciati: né troppo ammassati né troppo larghi
+  // Spazi tra i blob (compatti per farne entrare 6 senza problemi)
   const getSpacingClass = (spacing: "snug" | "regular" | "cozy") => {
-    if (bubbleCount >= 6) return "space-y-3";
-    if (bubbleCount === 5) return "space-y-4";
-    if (bubbleCount === 4) return "space-y-5";
+    if (bubbleCount >= 6) return "space-y-2";
+    if (bubbleCount === 5) return "space-y-3";
+    if (bubbleCount === 4) return "space-y-4";
     switch (spacing) {
-      case "snug": return "space-y-4";
+      case "snug": return "space-y-3.5";
       case "cozy": return "space-y-8";
       default: return "space-y-6";
     }
@@ -69,19 +69,19 @@ export function CardCanvas({
 
   // Avatar e Padding interni delle bolle
   const avatarSize = bubbleCount >= 6 ? 48 : bubbleCount === 5 ? 56 : bubbleCount === 4 ? 64 : 74;
-  const paddingClass = bubbleCount >= 6 ? "p-3.5" : bubbleCount === 5 ? "p-4" : bubbleCount === 4 ? "p-5" : "p-6";
+  const paddingClass = bubbleCount >= 6 ? "p-3.5 py-2.5" : bubbleCount === 5 ? "p-4 py-3" : bubbleCount === 4 ? "p-5 py-4" : "p-6 py-5";
 
-  // Margini e testi Titolo
-  const headerMarginClass = bubbleCount >= 6 ? "mt-1 mb-2 shrink-0 text-center" : bubbleCount === 5 ? "mt-2 mb-3 shrink-0 text-center" : "mt-3 mb-5 shrink-0 text-center";
-  const titleSizeClass = bubbleCount >= 6 ? "text-3xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-4xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-5xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
-  const subtitleSizeClass = bubbleCount >= 6 ? "text-sm font-medium tracking-wide opacity-80" : "text-base font-medium tracking-wide opacity-85";
+  // Margini e testi Titolo (RIMPICCIOLITO PER DARE FOCUS AI DIALOGHI)
+  const headerMarginClass = bubbleCount >= 6 ? "mt-2 mb-2 shrink-0 text-center" : bubbleCount === 5 ? "mt-3 mb-4 shrink-0 text-center" : "mt-4 mb-6 shrink-0 text-center";
+  const titleSizeClass = bubbleCount >= 6 ? "text-xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-2xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-3xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
+  const subtitleSizeClass = bubbleCount >= 6 ? "text-xs font-medium tracking-wide opacity-80" : "text-sm font-medium tracking-wide opacity-85";
 
-  // TESTI DELLE OPZIONI E DIALOGHI (Aumentati sensibilmente e senza classi "sm:")
-  const bubbleTextSize = bubbleCount >= 6 ? "text-xl font-extrabold tracking-tight mb-1 leading-snug" : bubbleCount === 5 ? "text-2xl font-extrabold tracking-tight mb-1 leading-snug" : bubbleCount === 4 ? "text-3xl font-extrabold tracking-tight mb-1.5 leading-snug" : "text-4xl font-extrabold tracking-tight mb-2 leading-snug";
+  // TESTI DELLE OPZIONI E DIALOGHI (COREANO INGRANDITO, INTERLINEA COMPATTA)
+  const bubbleTextSize = bubbleCount >= 6 ? "text-2xl font-extrabold tracking-tight mb-0.5 leading-tight" : bubbleCount === 5 ? "text-3xl font-extrabold tracking-tight mb-0.5 leading-tight" : bubbleCount === 4 ? "text-4xl font-extrabold tracking-tight mb-1 leading-tight" : "text-5xl font-extrabold tracking-tight mb-1.5 leading-tight";
   
-  const romanizationTextSize = bubbleCount >= 6 ? "text-base italic font-semibold text-indigo-700/85 mb-0.5" : bubbleCount === 5 ? "text-lg font-semibold italic text-indigo-700/85 mb-0.5" : "text-xl font-semibold italic text-indigo-700/85 mb-1";
+  const romanizationTextSize = bubbleCount >= 6 ? "text-sm italic font-semibold text-indigo-700/85 mb-0.5 leading-tight" : bubbleCount === 5 ? "text-base font-semibold italic text-indigo-700/85 mb-0.5 leading-tight" : "text-lg font-semibold italic text-indigo-700/85 mb-1 leading-tight";
   
-  const translationTextSize = bubbleCount >= 6 ? "text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1" : bubbleCount === 5 ? "text-lg font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1" : "text-xl font-medium text-zinc-600 border-t border-zinc-100/80 pt-1.5 mt-1.5";
+  const translationTextSize = bubbleCount >= 6 ? "text-sm font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1 leading-tight" : bubbleCount === 5 ? "text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1 leading-tight" : "text-lg font-medium text-zinc-600 border-t border-zinc-100/80 pt-1.5 mt-1.5 leading-tight";
 
   const footerMarginClass = bubbleCount >= 6 ? "text-center mt-3 shrink-0 border-t border-dashed border-gray-400/20 pt-2" : "text-center mt-6 shrink-0 border-t border-dashed border-gray-400/20 pt-3";
 

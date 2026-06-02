@@ -93,11 +93,11 @@ export function CardCanvas({
   // Margins and text sizes
   const headerMarginClass = bubbleCount >= 6 ? "mt-1 mb-2 shrink-0 text-center" : bubbleCount === 5 ? "mt-1.5 mb-3 shrink-0 text-center" : "mt-2 mb-4 shrink-0 text-center";
   const titleSizeClass = bubbleCount >= 6 ? "text-2.5xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-3xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-3.5xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
-  const subtitleSizeClass = bubbleCount >= 6 ? "text-xs font-medium tracking-wide opacity-80" : "text-sm font-medium tracking-wide opacity-85";
+  const subtitleSizeClass = bubbleCount >= 6 ? "text-xs font-medium tracking-wide opacity-80" : "text-base font-medium tracking-wide opacity-85";
 
-  const bubbleTextSize = bubbleCount >= 6 ? "text-base sm:text-lg font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 5 ? "text-lg sm:text-xl font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 4 ? "text-xl sm:text-2xl font-extrabold tracking-tight mb-1 leading-snug" : "text-2.5xl sm:text-3xl font-extrabold tracking-tight mb-1 leading-snug";
-  const romanizationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm italic font-semibold text-indigo-700/85 mb-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-semibold italic text-indigo-700/85 mb-0.5" : "text-base sm:text-lg font-semibold italic text-indigo-700/85 mb-1";
-  const translationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : "text-base sm:text-lg font-medium text-zinc-600 border-t border-zinc-100/80 pt-1 mt-1";
+  const bubbleTextSize = bubbleCount >= 6 ? "text-lg sm:text-lg font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 5 ? "text-lg sm:text-xl font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 4 ? "text-xl sm:text-2x1 font-extrabold tracking-tight mb-1 leading-snug" : "text-2.5xl sm:text-3xl font-extrabold tracking-tight mb-1 leading-snug";
+  const romanizationTextSize = bubbleCount >= 6 ? "text-xs sm:text-base italic font-semibold text-indigo-700/85 mb-0.5" : bubbleCount === 5 ? "text-base sm:text-lg font-semibold italic text-indigo-700/85 mb-0.5" : "text-lg sm:text-lg font-semibold italic text-indigo-700/85 mb-1";
+  const translationTextSize = bubbleCount >= 6 ? "text-xs sm:text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : bubbleCount === 5 ? "text-sm sm:text-lg font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : "text-lg sm:text-lg font-medium text-zinc-600 border-t border-zinc-100/80 pt-1 mt-1";
 
   const footerMarginClass = bubbleCount >= 6 ? "text-center mt-3 shrink-0 border-t border-dashed border-gray-400/20 pt-2" : "text-center mt-6 shrink-0 border-t border-dashed border-gray-400/20 pt-3";
 

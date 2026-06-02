@@ -39,65 +39,48 @@ export function CardCanvas({
   const bubbleCount = bubbles.length;
 
   const getSpacingClass = (spacing: "snug" | "regular" | "cozy") => {
-    if (bubbleCount >= 6) {
-      return "space-y-2";
-    }
-    if (bubbleCount === 5) {
-      return "space-y-3";
-    }
-    if (bubbleCount === 4) {
-      return "space-y-5";
-    }
+    if (bubbleCount >= 6) return "space-y-1";
+    if (bubbleCount === 5) return "space-y-2";
+    if (bubbleCount === 4) return "space-y-3";
     switch (spacing) {
-      case "snug":
-        return "space-y-3.5";
-      case "cozy":
-        return "space-y-8";
-      default:
-        return "space-y-6";
+      case "snug": return "space-y-3.5";
+      case "cozy": return "space-y-8";
+      default: return "space-y-6";
     }
   };
 
   // Helper classes for bubble roundness
   const getRoundnessClass = (roundness: "sm" | "md" | "lg" | "full") => {
     switch (roundness) {
-      case "sm":
-        return "rounded-sm";
-      case "md":
-        return "rounded-lg";
-      case "lg":
-        return "rounded-2xl";
-      case "full":
-        return "rounded-3xl";
+      case "sm": return "rounded-sm";
+      case "md": return "rounded-lg";
+      case "lg": return "rounded-2xl";
+      case "full": return "rounded-3xl";
     }
   };
 
   // Helper classes for shadow
   const getShadowClass = (shadow: "none" | "sm" | "md" | "lg") => {
     switch (shadow) {
-      case "none":
-        return "shadow-none";
-      case "sm":
-        return "shadow-xs";
-      case "md":
-        return "shadow-md";
-      case "lg":
-        return "shadow-xl";
+      case "none": return "shadow-none";
+      case "sm": return "shadow-xs";
+      case "md": return "shadow-md";
+      case "lg": return "shadow-xl";
     }
   };
 
   // Adaptive values downscaling according to row count
-  const avatarSize = bubbleCount >= 6 ? 50 : bubbleCount === 5 ? 58 : bubbleCount === 4 ? 66 : 74;
-  const paddingClass = bubbleCount >= 6 ? "p-3.5 py-2.5" : bubbleCount === 5 ? "p-4 py-3" : bubbleCount === 4 ? "p-4.5 py-3.5" : "p-5 py-4";
+  const avatarSize = bubbleCount >= 6 ? 40 : bubbleCount === 5 ? 48 : bubbleCount === 4 ? 56 : 74;
+  const paddingClass = bubbleCount >= 6 ? "px-3 py-1.5" : bubbleCount === 5 ? "px-3.5 py-2" : bubbleCount === 4 ? "px-4 py-2.5" : "px-5 py-4";
 
   // Margins and text sizes
-  const headerMarginClass = bubbleCount >= 6 ? "mt-1 mb-2 shrink-0 text-center" : bubbleCount === 5 ? "mt-1.5 mb-3 shrink-0 text-center" : "mt-2 mb-4 shrink-0 text-center";
-  const titleSizeClass = bubbleCount >= 6 ? "text-2.5xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-3xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-3.5xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
+  const headerMarginClass = bubbleCount >= 6 ? "mt-0 mb-1 shrink-0 text-center" : bubbleCount === 5 ? "mt-1 mb-2 shrink-0 text-center" : "mt-2 mb-4 shrink-0 text-center";
+  const titleSizeClass = bubbleCount >= 6 ? "text-2xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-3xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-4xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
   const subtitleSizeClass = bubbleCount >= 6 ? "text-xs font-medium tracking-wide opacity-80" : "text-sm font-medium tracking-wide opacity-85";
 
-  const bubbleTextSize = bubbleCount >= 6 ? "text-base sm:text-lg font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 5 ? "text-lg sm:text-xl font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 4 ? "text-xl sm:text-2xl font-extrabold tracking-tight mb-1 leading-snug" : "text-2.5xl sm:text-3xl font-extrabold tracking-tight mb-1 leading-snug";
-  const romanizationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm italic font-semibold text-indigo-700/85 mb-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-semibold italic text-indigo-700/85 mb-0.5" : "text-base sm:text-lg font-semibold italic text-indigo-700/85 mb-1";
-  const translationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : "text-base sm:text-lg font-medium text-zinc-600 border-t border-zinc-100/80 pt-1 mt-1";
+  const bubbleTextSize = bubbleCount >= 6 ? "text-base sm:text-lg font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 5 ? "text-lg sm:text-xl font-extrabold tracking-tight mb-0.5 leading-snug" : bubbleCount === 4 ? "text-xl sm:text-2xl font-extrabold tracking-tight mb-1 leading-snug" : "text-3xl sm:text-4xl font-extrabold tracking-tight mb-1 leading-snug";
+  const romanizationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm italic font-semibold text-indigo-700/85 mb-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-semibold italic text-indigo-700/85 mb-0.5" : "text-lg sm:text-xl font-semibold italic text-indigo-700/85 mb-1";
+  const translationTextSize = bubbleCount >= 6 ? "text-xs sm:text-sm font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : bubbleCount === 5 ? "text-sm sm:text-base font-medium text-zinc-650 border-t border-zinc-150/60 pt-0.5 mt-0.5" : "text-lg sm:text-xl font-medium text-zinc-600 border-t border-zinc-100/80 pt-1 mt-1";
 
   const footerMarginClass = bubbleCount >= 6 ? "text-center mt-3 shrink-0 border-t border-dashed border-gray-400/20 pt-2" : "text-center mt-6 shrink-0 border-t border-dashed border-gray-400/20 pt-3";
 
@@ -144,7 +127,7 @@ export function CardCanvas({
 
             {/* Card Frame Content Wrap (z-index 10 to stand above overlay graphics) */}
             <div className="relative z-10 w-full h-full flex flex-col justify-between">
-              
+
               {/* 1. Header Portion with Title */}
               <header className={headerMarginClass}>
                 {design.title && (
@@ -196,7 +179,7 @@ export function CardCanvas({
                             size={avatarSize}
                             className="shadow-md border-2 border-white rounded-full bg-white/90"
                           />
-                          <span className="text-[10px] text-xxs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
+                          <span className="text-xs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
                             {activeSpeaker.name || "A"}
                           </span>
                         </div>
@@ -259,7 +242,7 @@ export function CardCanvas({
                             size={avatarSize}
                             className="shadow-md border-2 border-white rounded-full bg-white/90"
                           />
-                          <span className="text-[10px] text-xxs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
+                          <span className="text-xs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
                             {activeSpeaker.name || "B"}
                           </span>
                         </div>
@@ -272,7 +255,7 @@ export function CardCanvas({
               {/* 3. Footer Segment: Watermark Handle decor */}
               <footer className={footerMarginClass}>
                 <div
-                  className="text-xs font-mono font-medium tracking-widest uppercase opacity-85 select-none"
+                  className="text-sm font-mono font-medium tracking-widest uppercase opacity-85 select-none"
                   style={{
                     color: design.customWatermarkColor || (design.backgroundTheme === "cosmic_sparkle" ? "#818CF8" : "#9C27B0"),
                   }}

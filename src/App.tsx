@@ -91,17 +91,17 @@ export default function App() {
   // Reference for the node to print
   const canvasRef = useRef<HTMLDivElement | null>(null);
 
-  // Handle auto-fitting scaling based on window size
+  // Handle auto-fitting scaling based on window size to keep preview text incredibly readable
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setScalePercent(36); // very small for mobile layout
+        setScalePercent(45); // increased zoom for clear mobile view
       } else if (window.innerWidth < 1024) {
-        setScalePercent(45);
+        setScalePercent(54); // improved safe visual zoom for small layouts
       } else if (window.innerWidth < 1280) {
-        setScalePercent(52);
+        setScalePercent(62);
       } else {
-        setScalePercent(58);
+        setScalePercent(68); // generous scale for desktop visualizers
       }
     };
     handleResize();

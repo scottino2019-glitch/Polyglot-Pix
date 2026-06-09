@@ -34,59 +34,229 @@ export function CardCanvas({
   };
 
   const currentSize = sizeMap[aspectRatioMode];
-
   const bubbleCount = bubbles.length;
 
-  // Spazi tra i blob
-  const getSpacingClass = (spacing: "snug" | "regular" | "cozy") => {
-    if (bubbleCount >= 6) return "space-y-2";
-    if (bubbleCount === 5) return "space-y-3";
-    if (bubbleCount === 4) return "space-y-4";
-    switch (spacing) {
-      case "snug": return "space-y-3.5";
-      case "cozy": return "space-y-8";
-      default: return "space-y-6";
-    }
-  };
-
+  // Helper classes for bubble roundness
   const getRoundnessClass = (roundness: "sm" | "md" | "lg" | "full") => {
     switch (roundness) {
-      case "sm": return "rounded-sm";
-      case "md": return "rounded-lg";
-      case "lg": return "rounded-2xl";
-      case "full": return "rounded-3xl";
+      case "sm":
+        return "rounded-sm";
+      case "md":
+        return "rounded-lg";
+      case "lg":
+        return "rounded-2xl";
+      case "full":
+        return "rounded-3xl";
     }
   };
 
+  // Helper classes for shadow
   const getShadowClass = (shadow: "none" | "sm" | "md" | "lg") => {
     switch (shadow) {
-      case "none": return "shadow-none";
-      case "sm": return "shadow-xs";
-      case "md": return "shadow-md";
-      case "lg": return "shadow-xl";
+      case "none":
+        return "shadow-none";
+      case "sm":
+        return "shadow-xs";
+      case "md":
+        return "shadow-md";
+      case "lg":
+        return "shadow-xl";
     }
   };
 
-  // Avatar e Padding interni delle bolle
-  const avatarSize = bubbleCount >= 6 ? 48 : bubbleCount === 5 ? 56 : bubbleCount === 4 ? 64 : 74;
-  const paddingClass = bubbleCount >= 6 ? "p-3.5 py-2.5" : bubbleCount === 5 ? "p-4 py-3" : bubbleCount === 4 ? "p-5 py-4" : "p-6 py-5";
+  // Dynamic Layout Configurator based on Aspect Ratio and Dialogue density to prevent overflows
+  const getLayoutConfig = (
+    ratio: "instagram" | "pinterest" | "square",
+    count: number
+  ) => {
+    if (ratio === "square") {
+      if (count <= 3) {
+        return {
+          avatarSize: 84,
+          paddingClass: "p-[26px] py-[22px]",
+          spacingClass: "space-y-[32px]",
+          headerMarginClass: "mt-[12px] mb-[24px] shrink-0 text-center",
+          titleSizeClass: "text-[34px] font-extrabold filter drop-shadow-xs mb-1 opacity-90 tracking-tight uppercase",
+          subtitleSizeClass: "text-[14px] font-medium tracking-wide opacity-80",
+          bubbleTextSize: "text-[28px] font-extrabold tracking-tight mb-1 leading-snug",
+          romanizationTextSize: "text-[18px]",
+          translationTextSize: "text-[18px]",
+          footerMarginClass: "text-center mt-[14px] shrink-0 border-t border-dashed border-gray-400/20 pt-2",
+        };
+      } else if (count === 4) {
+        return {
+          avatarSize: 72,
+          paddingClass: "p-[20px] py-[16px]",
+          spacingClass: "space-y-[22px]",
+          headerMarginClass: "mt-[10px] mb-[18px] shrink-0 text-center",
+          titleSizeClass: "text-[30px] font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase",
+          subtitleSizeClass: "text-[12px] font-medium tracking-wide opacity-80",
+          bubbleTextSize: "text-[24px] font-extrabold tracking-tight mb-0.5 leading-snug",
+          romanizationTextSize: "text-[16px]",
+          translationTextSize: "text-[16px]",
+          footerMarginClass: "text-center mt-[12px] shrink-0 border-t border-dashed border-gray-400/20 pt-1.5",
+        };
+      } else if (count === 5) {
+        return {
+          avatarSize: 62,
+          paddingClass: "p-[16px] py-[12px]",
+          spacingClass: "space-y-[14px]",
+          headerMarginClass: "mt-[8px] mb-[12px] shrink-0 text-center",
+          titleSizeClass: "text-[26px] font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase",
+          subtitleSizeClass: "text-[11px] font-medium tracking-wide opacity-70",
+          bubbleTextSize: "text-[21px] font-extrabold tracking-tight mb-0.5 leading-tight",
+          romanizationTextSize: "text-[15px]",
+          translationTextSize: "text-[15px]",
+          footerMarginClass: "text-center mt-[10px] shrink-0 border-t border-dashed border-gray-400/20 pt-1",
+        };
+      } else {
+        return {
+          avatarSize: 52,
+          paddingClass: "p-[14px] py-[10px]",
+          spacingClass: "space-y-[10px]",
+          headerMarginClass: "mt-[6px] mb-[10px] shrink-0 text-center",
+          titleSizeClass: "text-[22px] font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase",
+          subtitleSizeClass: "text-[10px] font-medium tracking-wide opacity-70",
+          bubbleTextSize: "text-[18px] font-extrabold tracking-tight leading-snug",
+          romanizationTextSize: "text-[14px]",
+          translationTextSize: "text-[14px]",
+          footerMarginClass: "text-center mt-[8px] shrink-0 border-t border-dashed border-gray-400/20 pt-0.5",
+        };
+      }
+    } else if (ratio === "instagram") {
+      if (count <= 3) {
+        return {
+          avatarSize: 96,
+          paddingClass: "p-[32px] py-[26px]",
+          spacingClass: "space-y-[44px]",
+          headerMarginClass: "mt-[24px] mb-[36px] shrink-0 text-center",
+          titleSizeClass: "text-[42px] font-extrabold filter drop-shadow-xs mb-2 tracking-tight uppercase",
+          subtitleSizeClass: "text-[16px] font-medium tracking-wide opacity-85",
+          bubbleTextSize: "text-[34px] font-extrabold tracking-tight mb-2 leading-snug",
+          romanizationTextSize: "text-[20px]",
+          translationTextSize: "text-[20px]",
+          footerMarginClass: "text-center mt-[32px] shrink-0 border-t border-dashed border-gray-400/20 pt-3.5",
+        };
+      } else if (count === 4) {
+        return {
+          avatarSize: 84,
+          paddingClass: "p-[26px] py-[20px]",
+          spacingClass: "space-y-[32px]",
+          headerMarginClass: "mt-[18px] mb-[28px] shrink-0 text-center",
+          titleSizeClass: "text-[36px] font-extrabold filter drop-shadow-xs mb-1.5 tracking-tight uppercase",
+          subtitleSizeClass: "text-[14px] font-medium tracking-wide opacity-85",
+          bubbleTextSize: "text-[28px] font-extrabold tracking-tight mb-1.5 leading-snug",
+          romanizationTextSize: "text-[18px]",
+          translationTextSize: "text-[18px]",
+          footerMarginClass: "text-center mt-[24px] shrink-0 border-t border-dashed border-gray-400/20 pt-3",
+        };
+      } else if (count === 5) {
+        return {
+          avatarSize: 74,
+          paddingClass: "p-[22px] py-[16px]",
+          spacingClass: "space-y-[22px]",
+          headerMarginClass: "mt-[14px] mb-[22px] shrink-0 text-center",
+          titleSizeClass: "text-[30px] font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase",
+          subtitleSizeClass: "text-[13px] font-medium tracking-wide opacity-85",
+          bubbleTextSize: "text-[24px] font-extrabold tracking-tight mb-1 leading-snug",
+          romanizationTextSize: "text-[16px]",
+          translationTextSize: "text-[16px]",
+          footerMarginClass: "text-center mt-[18px] shrink-0 border-t border-dashed border-gray-400/20 pt-2.5",
+        };
+      } else {
+        return {
+          avatarSize: 64,
+          paddingClass: "p-[18px] py-[13px]",
+          spacingClass: "space-y-[15px]",
+          headerMarginClass: "mt-[10px] mb-[16px] shrink-0 text-center",
+          titleSizeClass: "text-[26px] font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase",
+          subtitleSizeClass: "text-[12px] font-medium tracking-wide opacity-80",
+          bubbleTextSize: "text-[21px] font-extrabold tracking-tight mb-0.5 leading-snug",
+          romanizationTextSize: "text-[15px]",
+          translationTextSize: "text-[15px]",
+          footerMarginClass: "text-center mt-[14px] shrink-0 border-t border-dashed border-gray-400/25 pt-2",
+        };
+      }
+    } else {
+      // pinterest: Height 1200
+      if (count <= 3) {
+        return {
+          avatarSize: 104,
+          paddingClass: "p-[36px] py-[30px]",
+          spacingClass: "space-y-[52px]",
+          headerMarginClass: "mt-[28px] mb-[48px] shrink-0 text-center",
+          titleSizeClass: "text-[46px] font-extrabold filter drop-shadow-xs mb-2 tracking-tight uppercase",
+          subtitleSizeClass: "text-[18px] font-medium tracking-wide opacity-85",
+          bubbleTextSize: "text-[38px] font-extrabold tracking-tight mb-2 leading-snug",
+          romanizationTextSize: "text-[22px]",
+          translationTextSize: "text-[22px]",
+          footerMarginClass: "text-center mt-[40px] shrink-0 border-t border-dashed border-gray-400/20 pt-4.5",
+        };
+      } else if (count === 4) {
+        return {
+          avatarSize: 92,
+          paddingClass: "p-[30px] py-[24px]",
+          spacingClass: "space-y-[40px]",
+          headerMarginClass: "mt-[20px] mb-[38px] shrink-0 text-center",
+          titleSizeClass: "text-[40px] font-extrabold filter drop-shadow-xs mb-1.5 tracking-tight uppercase",
+          subtitleSizeClass: "text-[16px] font-medium tracking-wide opacity-85",
+          bubbleTextSize: "text-[32px] font-extrabold tracking-tight mb-1.5 leading-snug",
+          romanizationTextSize: "text-[19px]",
+          translationTextSize: "text-[19px]",
+          footerMarginClass: "text-center mt-[32px] shrink-0 border-t border-dashed border-gray-400/20 pt-3.5",
+        };
+      } else if (count === 5) {
+        return {
+          avatarSize: 82,
+          paddingClass: "p-[26px] py-[20px]",
+          spacingClass: "space-y-[32px]",
+          headerMarginClass: "mt-[16px] mb-[30px] shrink-0 text-center",
+          titleSizeClass: "text-[34px] font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase",
+          subtitleSizeClass: "text-[14px] font-medium tracking-wide opacity-85",
+          bubbleTextSize: "text-[28px] font-extrabold tracking-tight mb-1 leading-snug",
+          romanizationTextSize: "text-[17px]",
+          translationTextSize: "text-[17px]",
+          footerMarginClass: "text-center mt-[24px] shrink-0 border-t border-dashed border-gray-400/20 pt-3",
+        };
+      } else {
+        return {
+          avatarSize: 72,
+          paddingClass: "p-[22px] py-[16px]",
+          spacingClass: "space-y-[22px]",
+          headerMarginClass: "mt-[12px] mb-[24px] shrink-0 text-center",
+          titleSizeClass: "text-[30px] font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase",
+          subtitleSizeClass: "text-[13px] font-medium tracking-wide opacity-85",
+          bubbleTextSize: "text-[24px] font-extrabold tracking-tight mb-0.5 leading-snug",
+          romanizationTextSize: "text-[16px]",
+          translationTextSize: "text-[16px]",
+          footerMarginClass: "text-center mt-[18px] shrink-0 border-t border-dashed border-gray-400/25 pt-2.5",
+        };
+      }
+    }
+  };
 
-  // Margini e testi Titolo
-  const headerMarginClass = bubbleCount >= 6 ? "mt-2 mb-2 shrink-0 text-center" : bubbleCount === 5 ? "mt-3 mb-4 shrink-0 text-center" : "mt-4 mb-6 shrink-0 text-center";
-  const titleSizeClass = bubbleCount >= 6 ? "text-xl font-extrabold filter drop-shadow-xs mb-0.5 tracking-tight uppercase" : bubbleCount === 5 ? "text-2xl font-extrabold filter drop-shadow-xs mb-1 tracking-tight uppercase" : "text-3xl font-extrabold tracking-tight filter drop-shadow-xs mb-1 uppercase";
-  const subtitleSizeClass = bubbleCount >= 6 ? "text-xs font-medium tracking-wide opacity-80" : "text-sm font-medium tracking-wide opacity-85";
+  const layout = getLayoutConfig(aspectRatioMode, bubbleCount);
 
-  // TESTI DELLE OPZIONI E DIALOGHI
-  // Coreano grande:
-  const bubbleTextSize = bubbleCount >= 6 ? "text-2xl font-extrabold tracking-tight mb-0.5 leading-tight" : bubbleCount === 5 ? "text-3xl font-extrabold tracking-tight mb-0.5 leading-tight" : bubbleCount === 4 ? "text-4xl font-extrabold tracking-tight mb-1 leading-tight" : "text-5xl font-extrabold tracking-tight mb-1.5 leading-tight";
-  
-  // Romaji AUMENTATO (es. text-lg invece di text-sm per 6 bolle):
-  const romanizationTextSize = bubbleCount >= 6 ? "text-lg italic font-semibold text-indigo-700/85 mb-0.5 leading-tight" : bubbleCount === 5 ? "text-xl font-semibold italic text-indigo-700/85 mb-0.5 leading-tight" : "text-2xl font-semibold italic text-indigo-700/85 mb-1 leading-tight";
-  
-  // Italiano AUMENTATO (es. text-lg invece di text-sm per 6 bolle):
-  const translationTextSize = bubbleCount >= 6 ? "text-lg font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1 leading-tight" : bubbleCount === 5 ? "text-xl font-medium text-zinc-650 border-t border-zinc-150/60 pt-1 mt-1 leading-tight" : "text-2xl font-medium text-zinc-600 border-t border-zinc-100/80 pt-1.5 mt-1.5 leading-tight";
+  // Apply bubbleSpacing adjustment elegantly if requested
+  let finalSpacingClass = layout.spacingClass;
+  if (design.bubbleSpacing === "snug") {
+    if (bubbleCount <= 4) finalSpacingClass = "space-y-[12px]";
+    else finalSpacingClass = "space-y-[6px]";
+  } else if (design.bubbleSpacing === "cozy") {
+    if (bubbleCount <= 4) finalSpacingClass = "space-y-[32px]";
+    else finalSpacingClass = "space-y-[18px]";
+  }
 
-  const footerMarginClass = bubbleCount >= 6 ? "text-center mt-3 shrink-0 border-t border-dashed border-gray-400/20 pt-2" : "text-center mt-6 shrink-0 border-t border-dashed border-gray-400/20 pt-3";
+  // Alias layout options for template compatibility
+  const avatarSize = layout.avatarSize;
+  const paddingClass = layout.paddingClass;
+  const headerMarginClass = layout.headerMarginClass;
+  const titleSizeClass = layout.titleSizeClass;
+  const subtitleSizeClass = layout.subtitleSizeClass;
+  const bubbleTextSize = layout.bubbleTextSize;
+  const romanizationTextSize = layout.romanizationTextSize;
+  const translationTextSize = layout.translationTextSize;
+  const footerMarginClass = layout.footerMarginClass;
 
   // True scaled footprint width and height
   const scaleRatio = scalePercent / 100;
@@ -131,7 +301,7 @@ export function CardCanvas({
 
             {/* Card Frame Content Wrap (z-index 10 to stand above overlay graphics) */}
             <div className="relative z-10 w-full h-full flex flex-col justify-between">
-
+              
               {/* 1. Header Portion with Title */}
               <header className={headerMarginClass}>
                 {design.title && (
@@ -165,7 +335,7 @@ export function CardCanvas({
               </header>
 
               {/* 2. Middle Portion: Dialogues Scroll Area */}
-              <main className={`flex-1 flex flex-col justify-center my-auto overflow-hidden px-4 ${getSpacingClass(design.bubbleSpacing)}`}>
+              <main className={`flex-1 flex flex-col justify-center my-auto overflow-hidden px-4 ${finalSpacingClass}`}>
                 {bubbles.map((bub, index) => {
                   const isLeft = bub.speaker === "A";
                   const activeSpeaker = isLeft ? speakerA : speakerB;
@@ -183,7 +353,7 @@ export function CardCanvas({
                             size={avatarSize}
                             className="shadow-md border-2 border-white rounded-full bg-white/90"
                           />
-                          <span className="text-xs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
+                          <span className="text-[10px] text-xxs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
                             {activeSpeaker.name || "A"}
                           </span>
                         </div>
@@ -202,20 +372,20 @@ export function CardCanvas({
                           }}
                         >
                           {/* Native/Target Text (Line 1) */}
-                          <div className={`${bubbleTextSize} text-zinc-900`}>
+                          <div className={`${bubbleTextSize} font-extrabold`} style={{ color: activeSpeaker.textColor || "inherit" }}>
                             {bub.text || "..."}
                           </div>
 
                           {/* Pronunciation Transliteration (Line 2) */}
                           {bub.romanization && (
-                            <div className={romanizationTextSize}>
+                            <div className={`${romanizationTextSize} font-semibold italic mt-1`} style={{ color: activeSpeaker.textColor || "inherit", opacity: 0.85 }}>
                               {bub.romanization}
                             </div>
                           )}
 
                           {/* Translation (Line 3) */}
                           {bub.translation && (
-                            <div className={translationTextSize}>
+                            <div className={`${translationTextSize} font-medium border-t pt-1.5 mt-1.5`} style={{ color: activeSpeaker.textColor || "inherit", opacity: 0.72, borderColor: design.backgroundTheme === "cosmic_sparkle" ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)" }}>
                               {bub.translation}
                             </div>
                           )}
@@ -246,7 +416,7 @@ export function CardCanvas({
                             size={avatarSize}
                             className="shadow-md border-2 border-white rounded-full bg-white/90"
                           />
-                          <span className="text-xs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
+                          <span className="text-[10px] text-xxs font-semibold mt-1 px-1.5 py-0.5 rounded-full bg-black/5 text-gray-700 select-none uppercase tracking-wider scale-90 origin-top">
                             {activeSpeaker.name || "B"}
                           </span>
                         </div>
@@ -259,7 +429,7 @@ export function CardCanvas({
               {/* 3. Footer Segment: Watermark Handle decor */}
               <footer className={footerMarginClass}>
                 <div
-                  className="text-sm font-mono font-medium tracking-widest uppercase opacity-85 select-none"
+                  className="text-xs font-mono font-medium tracking-widest uppercase opacity-85 select-none"
                   style={{
                     color: design.customWatermarkColor || (design.backgroundTheme === "cosmic_sparkle" ? "#818CF8" : "#9C27B0"),
                   }}
